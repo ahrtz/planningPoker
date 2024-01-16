@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import App from './App.tsx'
 import './index.css'
-import PlanningPokerPage from './views/PlanningPokerPage.tsx';
+import PlanningPokerPage from '@/views/Pages/PlanningPokerPage.tsx';
 
 const router = createBrowserRouter([
   {

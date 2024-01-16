@@ -11,7 +11,7 @@ const PlanningPokerPage = () => {
     const onLoad = async() => {
         const result = await checkRoom(location.pathname.slice(1).toString())
         console.log(result)
-        if (result.data.length>0){
+        if (result?.data.length>0){
             console.log("있음") // todo : 있을때 로직 진행
         }else{
             console.log("없음") // 없을때 에러화면 진행 
