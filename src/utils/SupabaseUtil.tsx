@@ -1,4 +1,5 @@
 import { REALTIME_LISTEN_TYPES, createClient } from "@supabase/supabase-js";
+import React from "react";
 
 import.meta.env.VITE_PROJECT_SUPABASE_NAME
 import.meta.env.VITE_PROJECT_SUPABASE_TOKEN
@@ -30,5 +31,9 @@ export function useSupabase() {
         await supabase.from("roomParticipationInfo").update({roomCode:roomCode,nickName:nickName ,point : point}).eq('roomCode',roomCode).eq("nickName",nickName)
     }
 
-    return {createRoom,checkRoom,getRoomInfo,insertParticipant,createRealtimeConnection,updatePoints}
+    const deleteParticipant = async (roomCode:string,nickName :string)=> {
+        await supabase.from("roomParticipationInfo").delete().match({ 'roomCode': roomCode,"nickName":nickName });
+    }
+
+    return {createRoom,checkRoom,getRoomInfo,insertParticipant,createRealtimeConnection,updatePoints,deleteParticipant}
 }
