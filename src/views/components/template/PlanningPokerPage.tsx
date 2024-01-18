@@ -12,13 +12,14 @@ type participantInfo={
 
 
 const PlanningPokerPage = () => {
-    const {getRoomInfo,createRealtimeConnection,updatePoints,deleteParticipant} = useSupabase();
+    const {getRoomInfo,createRealtimeConnection,updatePoints,deleteParticipant,updateParticipantDefault} = useSupabase();
     const [participants,setParticipants] = useState<participantInfo[]>([])
     const location = useLocation();
     const navigate = useNavigate();
     const roomCode = location.pathname.slice(1).toString()
     const [nickName,setNickName] = useState("")
     const [open,setOpen] = useState<boolean>(false)
+    const [cardOpen,setCardOpen] = useState<boolean>(false)
     const handleChange = async (payload: any) => {
         console.log(payload)
         await setParticipants((prevData) => {
@@ -50,11 +51,17 @@ const PlanningPokerPage = () => {
     }
     const handledelete =  async ()=>{
       console.log(roomCode,nickName)
-      const test = await deleteParticipant(roomCode,nickName)
+      await deleteParticipant(roomCode,nickName)
       sessionStorage.removeItem(roomCode)
       navigate("/")
     }
-
+    const handleFlipCard = () => {
+      setCardOpen(true);
+    }
+    const handleInit = () => {
+      setCardOpen(false);
+      updateParticipantDefault(roomCode)
+    }
     useEffect(()=>{
       createRealtimeConnection(roomCode,handleChange)
         if (sessionStorage.getItem(roomCode)){
@@ -75,10 +82,12 @@ const PlanningPokerPage = () => {
         참여자
         <ul>
         {participants.map((participant) => (
-          <li key={participant?.nickName}>{participant?.nickName +":"+ participant?.point}</li>
+          <li key={participant?.nickName}>{participant?.nickName +":"}{cardOpen && participant?.point}</li>
             ))}
         </ul>
         <button onClick={handledelete} value={'1'}> 방나가기</button>
+        <button onClick={handleFlipCard}>Flip Card</button>
+        <button onClick={handleInit}>다음 스토리</button>
         점수
         <div>
             <button onClick={handleUpdatePoints} value={'1'}> 1</button>

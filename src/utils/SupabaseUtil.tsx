@@ -35,5 +35,9 @@ export function useSupabase() {
         await supabase.from("roomParticipationInfo").delete().match({ 'roomCode': roomCode,"nickName":nickName });
     }
 
-    return {createRoom,checkRoom,getRoomInfo,insertParticipant,createRealtimeConnection,updatePoints,deleteParticipant}
+    const updateParticipantDefault = async (roomCode:string)=> {
+        await supabase.from("roomParticipationInfo").update(({'roomCode':roomCode,point:null})).eq('roomCode',roomCode);
+    }
+
+    return {createRoom,checkRoom,getRoomInfo,insertParticipant,createRealtimeConnection,updatePoints,deleteParticipant,updateParticipantDefault}
 }
