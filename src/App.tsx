@@ -15,12 +15,10 @@ function App() {
     const time = Date.now();
     const result =  await createRoom(roomName,time.toString())
     if (result.status == 201){
-      console.log("성공")
       navigate(`${(time.toString())}`);
     }else{
       console.log("실패")
     }
-    console.log(result)
   }
   return (
     <>

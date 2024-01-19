@@ -35,7 +35,6 @@ const SupaTestPage : React.FC =() => {
         
     async function getCountries() {
         const { data } = await supabase.from("countries").select();
-        console.log(data)
         setTest(data)
       }
 
