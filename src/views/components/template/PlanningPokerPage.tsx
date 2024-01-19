@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import NicknameModal from '../organism/NicknameModal';
 import { Button } from '@mui/material';
+import CopyModal from '../organism/CopyModal';
 
 type participantInfo={
     nickName:string,
@@ -85,9 +86,11 @@ const PlanningPokerPage = () => {
           <li key={participant?.nickName}>{participant?.nickName +":"}{cardOpen && participant?.point}</li>
             ))}
         </ul>
-        <button onClick={handledelete} value={'1'}> 방나가기</button>
+        <div>
+        <button onClick={handledelete} > 방나가기</button>
         <button onClick={handleFlipCard}>Flip Card</button>
         <button onClick={handleInit}>다음 스토리</button>
+        </div>
         점수
         <div>
             <button onClick={handleUpdatePoints} value={'1'}> 1</button>
@@ -97,6 +100,7 @@ const PlanningPokerPage = () => {
            
         </div>
         <NicknameModal isOpen={open} callbackFunc={setNickName}/>
+        <CopyModal />
     </>)
 }
 
