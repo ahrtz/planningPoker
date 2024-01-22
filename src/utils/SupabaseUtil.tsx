@@ -66,7 +66,13 @@ export function useSupabase() {
   const updateParticipantDefault = async (roomCode: string) => {
     await supabase
       .from("roomParticipationInfo")
-      .update({ roomCode: roomCode, point: null })
+      .update({ roomCode: roomCode, point: null,openYn:false })
+      .eq("roomCode", roomCode);
+  };
+  const updateOpenYn = async (roomCode: string) => {
+    await supabase
+      .from("roomParticipationInfo")
+      .update({ openYn: true })
       .eq("roomCode", roomCode);
   };
 
@@ -79,5 +85,6 @@ export function useSupabase() {
     updatePoints,
     deleteParticipant,
     updateParticipantDefault,
+    updateOpenYn
   };
 }

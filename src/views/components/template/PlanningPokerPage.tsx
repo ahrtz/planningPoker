@@ -8,6 +8,7 @@ import CopyModal from "../organism/CopyModal";
 type participantInfo = {
   nickName: string;
   point: string | undefined;
+  openYn:boolean
 };
 
 const PlanningPokerPage = () => {
@@ -17,6 +18,7 @@ const PlanningPokerPage = () => {
     updatePoints,
     deleteParticipant,
     updateParticipantDefault,
+    updateOpenYn
   } = useSupabase();
   const [participants, setParticipants] = useState<participantInfo[]>([]);
   const location = useLocation();
@@ -59,7 +61,8 @@ const PlanningPokerPage = () => {
     sessionStorage.removeItem(roomCode);
     navigate("/");
   };
-  const handleFlipCard = () => {
+  const handleFlipCard = async() => {
+    await updateOpenYn(roomCode)
     setCardOpen(true);
   };
   const handleInit = () => {
@@ -91,7 +94,7 @@ const PlanningPokerPage = () => {
         {participants.map((participant) => (
           <li key={participant?.nickName}>
             {participant?.nickName + ":"}
-            {cardOpen && participant?.point}
+            {participant?.openYn && participant?.point}
           </li>
         ))}
       </ul>
