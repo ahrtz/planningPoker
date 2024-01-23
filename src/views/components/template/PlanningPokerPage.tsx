@@ -2,7 +2,6 @@ import { useSupabase } from "@/utils/SupabaseUtil.tsx";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import NicknameModal from "../organism/NicknameModal";
-import { Button } from "@mui/material";
 import CopyModal from "../organism/CopyModal";
 
 type participantInfo = {
@@ -26,7 +25,6 @@ const PlanningPokerPage = () => {
   const roomCode = location.pathname.slice(1).toString();
   const [nickName, setNickName] = useState("");
   const [open, setOpen] = useState<boolean>(false);
-  const [cardOpen, setCardOpen] = useState<boolean>(false);
   const handleChange = async (payload: any) => {
     await setParticipants((prevData) => {
       const existItem = prevData?.find(
@@ -63,10 +61,8 @@ const PlanningPokerPage = () => {
   };
   const handleFlipCard = async() => {
     await updateOpenYn(roomCode)
-    setCardOpen(true);
   };
   const handleInit = () => {
-    setCardOpen(false);
     updateParticipantDefault(roomCode);
   };
   useEffect(() => {

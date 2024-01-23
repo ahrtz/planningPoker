@@ -11,7 +11,7 @@ const PlanningPoker = () => {
   const onLoad = async () => {
     const result = await checkRoom(location.pathname.slice(1).toString());
 
-    if (result?.data.length > 0) {
+    if (result?.data && result?.data.length > 0) {
       setRoomExist(true);
       // todo : 있을때 로직 진행
     } else {
